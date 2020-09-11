@@ -4,7 +4,7 @@ RUN gu install native-image
 COPY . /home/app/micronaut-java-graalvm-service
 WORKDIR /home/app/micronaut-java-graalvm-service
 
-RUN native-image --no-server -cp target/micronaut-java-graalvm-service-*.jar
+RUN native-image --no-server --no-fallback -cp target/micronaut-java-graalvm-service-*.jar
 
 FROM frolvlad/alpine-glibc
 RUN apk update && apk add libstdc++
