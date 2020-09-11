@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "micronaut-java-graalvm-service"
+spec:
+  selector:
+    matchLabels:
+      app: "micronaut-java-graalvm-service"
+  template:
+    metadata:
+      labels:
+        app: "micronaut-java-graalvm-service"
+    spec:
+      containers:
+        - name: "micronaut-java-graalvm-service"
+          image: "gcr.io/micronaut-java-graalvm-service/jib-image"
+          ports:
+            - name: http
+              containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "micronaut-java-graalvm-service"
+spec:
+  selector:
+    app: "micronaut-java-graalvm-service"
+  type: LoadBalancer
+  ports:
+    - protocol: "TCP"
+      port: 8080

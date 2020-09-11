@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.tech.service
+testFramework: junit
+sourceLanguage: java
+buildTool: maven
+features: [app-name, docker, file-watch, graalvm, http-client, java, java-application, jib, junit, kubernetes, log4j2, management, maven, netty-server, readme, yaml]
